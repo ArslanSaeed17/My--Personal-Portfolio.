@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>Admin // Arslan Saeed</title>
+<link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@700;900&family=Rajdhani:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cyan:#00f5ff; --green:#00ff41; --bg:#020c0e; --bg2:#050f12; --bg3:#071418;
+  --panel:rgba(0,245,255,0.04); --border:rgba(0,245,255,0.18); --border-hot:rgba(0,245,255,0.6);
+  --text:#b0e8ee; --text-dim:#4a7a80; --red:#ff0055; --yellow:#ffe000;
+  --glow-cyan:0 0 10px #00f5ff,0 0 30px rgba(0,245,255,.35);
+  --font-mono:'Share Tech Mono',monospace; --font-head:'Orbitron',monospace; --font-body:'Rajdhani',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:16px;line-height:1.55;min-height:100vh}
+::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--cyan);border-radius:3px}
+a{color:var(--cyan)}
+h1,h2,h3{font-family:var(--font-head);letter-spacing:.5px}
+.mono{font-family:var(--font-mono)}
+
+/* ── GATE ── */
+#gate{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+.gate-box{width:100%;max-width:380px;background:var(--panel);border:1px solid var(--border);padding:36px 30px;text-align:center}
+.gate-box h1{font-size:1.2rem;color:var(--cyan);margin-bottom:6px}
+.gate-box p{color:var(--text-dim);font-size:.85rem;margin-bottom:22px}
+.gate-box input{width:100%;background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:12px 14px;font-family:var(--font-mono);font-size:.95rem;outline:none;margin-bottom:14px}
+.gate-box input:focus{border-color:var(--border-hot)}
+.gate-box button{width:100%;background:var(--cyan);color:#020c0e;border:none;padding:12px;font-family:var(--font-mono);font-weight:700;letter-spacing:1px;cursor:pointer;text-transform:uppercase}
+.gate-box button:hover{box-shadow:var(--glow-cyan)}
+.gate-err{color:var(--red);font-size:.8rem;margin-top:10px;min-height:1em}
+.gate-note{margin-top:20px;font-size:.72rem;color:var(--text-dim);border-top:1px dashed var(--border);padding-top:14px}
+
+/* ── APP ── */
+#app{display:none;max-width:1000px;margin:0 auto;padding:30px 20px 90px}
+header.top{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:26px;padding-bottom:16px;border-bottom:1px solid var(--border)}
+header.top h1{font-size:1.3rem;color:var(--cyan)}
+header.top h1 span{color:var(--green)}
+.btn{font-family:var(--font-mono);font-size:.75rem;letter-spacing:.5px;text-transform:uppercase;background:var(--panel);border:1px solid var(--border);color:var(--text);padding:9px 16px;cursor:pointer;transition:.2s}
+.btn:hover{border-color:var(--border-hot);color:var(--cyan)}
+.btn-primary{background:var(--cyan);color:#020c0e;border-color:var(--cyan);font-weight:700}
+.btn-primary:hover{box-shadow:var(--glow-cyan);color:#020c0e}
+.btn-danger{border-color:rgba(255,0,85,.4);color:var(--red)}
+.btn-danger:hover{border-color:var(--red);box-shadow:0 0 10px rgba(255,0,85,.4)}
+.btn-sm{padding:6px 10px;font-size:.68rem}
+
+.panel{background:var(--panel);border:1px solid var(--border);padding:22px;margin-bottom:24px}
+.panel h2{font-size:1rem;color:var(--cyan);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.panel h2 .num{color:var(--green);font-family:var(--font-mono)}
+
+.field{margin-bottom:14px}
+.field label{display:block;font-family:var(--font-mono);font-size:.72rem;letter-spacing:.5px;text-transform:uppercase;color:var(--text-dim);margin-bottom:6px}
+.field input[type=text],.field input[type=url],.field textarea,.field select{
+  width:100%;background:var(--bg3);border:1px solid var(--border);color:var(--text);
+  padding:10px 12px;font-family:var(--font-body);font-size:.95rem;outline:none;
+}
+.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--border-hot)}
+.field textarea{resize:vertical;min-height:70px}
+.field-hint{font-size:.72rem;color:var(--text-dim);margin-top:5px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:640px){.row2{grid-template-columns:1fr}}
+
+.img-tabs{display:flex;gap:8px;margin-bottom:8px}
+.img-tab{font-family:var(--font-mono);font-size:.7rem;padding:6px 12px;background:var(--bg3);border:1px solid var(--border);color:var(--text-dim);cursor:pointer}
+.img-tab.active{color:var(--cyan);border-color:var(--border-hot)}
+.img-preview{margin-top:10px;max-width:220px;border:1px solid var(--border);display:none}
+.img-preview img{width:100%;display:block}
+
+.cat-row{display:flex;gap:8px}
+.cat-row select{flex:1}
+#newCatWrap{display:none;margin-top:8px}
+
+.form-actions{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}
+
+.plist{display:flex;flex-direction:column;gap:10px}
+.pitem{display:flex;gap:14px;align-items:center;background:var(--bg3);border:1px solid var(--border);padding:12px;flex-wrap:wrap}
+.pitem img{width:70px;height:50px;object-fit:cover;border:1px solid var(--border);flex-shrink:0;background:#000}
+.pitem .info{flex:1;min-width:180px}
+.pitem .info .t{font-weight:700;color:var(--text)}
+.pitem .info .c{font-family:var(--font-mono);font-size:.7rem;color:var(--green)}
+.pitem .actions{display:flex;gap:6px}
+.empty-msg{color:var(--text-dim);font-size:.85rem;text-align:center;padding:20px}
+
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--bg3);border:1px solid var(--border-hot);color:var(--text);padding:12px 22px;font-family:var(--font-mono);font-size:.8rem;box-shadow:var(--glow-cyan);opacity:0;pointer-events:none;transition:.3s;z-index:999}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(-6px)}
+
+.instructions{color:var(--text-dim);font-size:.85rem}
+.instructions ol{margin-left:20px;margin-top:8px}
+.instructions li{margin-bottom:6px}
+.instructions code{background:var(--bg3);padding:2px 6px;border:1px solid var(--border);color:var(--cyan);font-family:var(--font-mono);font-size:.82em}
+</style>
+</head>
+<body>
+
+<!-- ══════════ PASSCODE GATE ══════════ -->
+<div id="gate">
+  <div class="gate-box">
+    <h1>🔒 RESTRICTED</h1>
+    <p class="mono">Enter passcode to manage projects</p>
+    <input type="password" id="passInput" placeholder="passcode" autocomplete="off">
+    <button onclick="tryUnlock()">Unlock</button>
+    <div class="gate-err" id="gateErr"></div>
+    <div class="gate-note">This is a light front-door, not real security — the page and its code are still reachable by anyone with the URL. Don't put anything truly secret behind it, and change the passcode in the file itself whenever you like.</div>
+  </div>
+</div>
+
+<!-- ══════════ ADMIN APP ══════════ -->
+<div id="app">
+  <header class="top">
+    <h1>PROJECT<span>_ADMIN</span></h1>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <a href="index.html" class="btn">← Back to Site</a>
+      <button class="btn btn-danger" onclick="lock()">Lock</button>
+    </div>
+  </header>
+
+  <div class="panel">
+    <h2><span class="num">01.</span> <span id="formTitle">Add New Project</span></h2>
+    <form id="projectForm" onsubmit="saveProject(event)">
+      <div class="row2">
+        <div class="field">
+          <label>Title</label>
+          <input type="text" id="f_title" required placeholder="e.g. My New App">
+        </div>
+        <div class="field">
+          <label>Category</label>
+          <div class="cat-row">
+            <select id="f_category"></select>
+            <button type="button" class="btn btn-sm" onclick="toggleNewCat()">+ New</button>
+          </div>
+          <div id="newCatWrap">
+            <input type="text" id="f_newCategory" placeholder="e.g. Networking">
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Description</label>
+        <textarea id="f_description" required placeholder="1-3 sentences about the project"></textarea>
+      </div>
+
+      <div class="field">
+        <label>Project Image</label>
+        <div class="img-tabs">
+          <div class="img-tab active" data-mode="url" onclick="setImgMode('url')">URL / path</div>
+          <div class="img-tab" data-mode="upload" onclick="setImgMode('upload')">Upload file</div>
+        </div>
+        <input type="text" id="f_image_url" placeholder="assets/myshot.png  or  https://...">
+        <input type="file" id="f_image_file" accept="image/*" style="display:none" onchange="handleFileUpload(event)">
+        <div class="field-hint">"URL / path" = paste a link, or a path to a file you've manually placed in <code class="mono">/assets</code>. "Upload file" embeds the image directly into the data file (no separate file to manage) — fine for a handful of projects, just keep images reasonably small (compress before uploading).</div>
+        <div class="img-preview" id="imgPreview"><img id="imgPreviewTag" src=""></div>
+      </div>
+
+      <div class="row2">
+        <div class="field">
+          <label>GitHub Link (optional)</label>
+          <input type="text" id="f_github" placeholder="https://github.com/...">
+        </div>
+        <div class="field">
+          <label>Live / Vercel / Domain Link (optional)</label>
+          <input type="text" id="f_live" placeholder="https://your-project.vercel.app">
+        </div>
+      </div>
+
+      <div class="row2">
+        <div class="field">
+          <label>Tags (comma separated)</label>
+          <input type="text" id="f_tags" placeholder="FastAPI, Supabase, Vercel">
+        </div>
+        <div class="field">
+          <label>Icon (single emoji)</label>
+          <input type="text" id="f_icon" placeholder="💻" maxlength="4">
+        </div>
+      </div>
+
+      <div class="row2">
+        <div class="field">
+          <label>Badge (small tag on card, optional)</label>
+          <input type="text" id="f_badge" placeholder="Full Stack">
+        </div>
+        <div class="field">
+          <label>Card Type Label (optional, small mono text)</label>
+          <input type="text" id="f_cardType" placeholder="e.g. WEB PORTAL">
+        </div>
+      </div>
+
+      <input type="hidden" id="f_id">
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary" id="submitBtn">+ Add Project</button>
+        <button type="button" class="btn" id="cancelEditBtn" style="display:none" onclick="cancelEdit()">Cancel Edit</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="panel">
+    <h2><span class="num">02.</span> Current Projects (<span id="countLabel">0</span>)</h2>
+    <div class="plist" id="plist"></div>
+  </div>
+
+  <div class="panel">
+    <h2><span class="num">03.</span> Save Your Changes</h2>
+    <p class="instructions">Changes here only live in this browser tab until you export the file. When you're done adding/editing/deleting:</p>
+    <div class="form-actions">
+      <button class="btn btn-primary" onclick="downloadFile()">⬇ Download updated index.html</button>
+      <button class="btn" onclick="copyFile()">⧉ Copy PROJECTS array</button>
+    </div>
+    <div class="instructions">
+      <ol>
+        <li>Click <code>Download updated index.html</code> above.</li>
+        <li>Replace the existing <code>index.html</code> file at the root of your project with the downloaded one.</li>
+        <li>If you uploaded any images manually to <code>/assets</code>, make sure they're included too.</li>
+        <li>Commit &amp; push to GitHub — Vercel will redeploy automatically. The new category filter tabs on the live site update themselves based on whatever categories exist in the data.</li>
+      </ol>
+      <p id="loadStatus" style="margin-top:14px"></p>
+      <details style="margin-top:10px">
+        <summary style="cursor:pointer;color:var(--cyan);font-size:.85rem">Data didn't load automatically? Load it manually</summary>
+        <p style="margin-top:10px">This happens if you open this file directly (<code>file://...</code>) instead of through a server — browsers block that kind of local file loading. Paste the full contents of your current <code>index.html</code> below and click Load, or just try this page on your deployed site instead, where it works automatically.</p>
+        <div class="field" style="margin-top:10px">
+          <textarea id="manualHtml" style="min-height:120px;font-family:var(--font-mono);font-size:.75rem" placeholder="Paste index.html contents here"></textarea>
+        </div>
+        <button class="btn btn-sm" onclick="loadFromManualPaste()">Load Pasted HTML</button>
+      </details>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2><span class="num">04.</span> Favicon</h2>
+    <p class="instructions">The site favicon is a set of static image files in <code>/assets</code> (<code>favicon.ico</code>, <code>favicon-16x16.png</code>, <code>favicon-32x32.png</code>, <code>favicon-48x48.png</code>, <code>apple-touch-icon.png</code>, <code>android-chrome-192x192.png</code>, <code>android-chrome-512x512.png</code>) referenced from <code>index.html</code>'s <code>&lt;head&gt;</code>. To change it later, generate a new set with the same filenames and sizes and drop them into <code>/assets</code> — no HTML changes needed.</p>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/*
+  ── PASSCODE ──
+  Change this to whatever you like. This is obscurity, not real auth —
+  anyone who views this file's source can read the passcode. Don't rely
+  on it to protect anything sensitive.
+*/
+const ADMIN_PASSCODE = "arslan-admin-2026";
+
+const gate = document.getElementById('gate');
+const app = document.getElementById('app');
+
+function tryUnlock() {
+  const val = document.getElementById('passInput').value;
+  if (val === ADMIN_PASSCODE) {
+    sessionStorage.setItem('admin_unlocked', '1');
+    gate.style.display = 'none';
+    app.style.display = 'block';
+    loadIndexHtml();
+  } else {
+    document.getElementById('gateErr').textContent = 'Incorrect passcode.';
+  }
+}
+document.getElementById('passInput').addEventListener('keydown', e => { if (e.key === 'Enter') tryUnlock(); });
+
+function lock() {
+  sessionStorage.removeItem('admin_unlocked');
+  location.reload();
+}
+
+if (sessionStorage.getItem('admin_unlocked') === '1') {
+  gate.style.display = 'none';
+  app.style.display = 'block';
+  loadIndexHtml();
+}
+
+/* ── DATA ──
+   fullHtml holds the entire index.html source so we can splice the
+   edited PROJECTS array back in and hand back a complete, ready-to-use
+   file on export. */
+let fullHtml = null;
+let projects = [];
+let editingId = null;
+
+const START_MARKER = '/* PROJECTS_DATA_START';
+const END_MARKER = '/* PROJECTS_DATA_END */';
+
+function extractProjectsBlock(html) {
+  const startIdx = html.indexOf(START_MARKER);
+  const endIdx = html.indexOf(END_MARKER);
+  if (startIdx === -1 || endIdx === -1) return null;
+  const block = html.slice(startIdx, endIdx + END_MARKER.length);
+  const match = block.match(/const PROJECTS = (\[[\s\S]*?\]);/);
+  if (!match) return null;
+  try {
+    // eslint-disable-next-line no-eval
+    const arr = (0, eval)(match[1]);
+    return Array.isArray(arr) ? arr : null;
+  } catch (e) {
+    return null;
+  }
+}
+
+function loadIndexHtml() {
+  const status = document.getElementById('loadStatus');
+  fetch('index.html', { cache: 'no-store' })
+    .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.text(); })
+    .then(html => {
+      const arr = extractProjectsBlock(html);
+      if (!arr) throw new Error('Could not find the PROJECTS data block in index.html');
+      fullHtml = html;
+      projects = arr;
+      status.textContent = '';
+      renderList();
+      populateCategorySelect();
+    })
+    .catch(err => {
+      status.innerHTML = '⚠ Could not auto-load index.html (' + err.message + '). Use "Load it manually" below.';
+      renderList();
+      populateCategorySelect();
+    });
+}
+
+function loadFromManualPaste() {
+  const html = document.getElementById('manualHtml').value;
+  const arr = extractProjectsBlock(html);
+  if (!arr) {
+    toast('Could not find PROJECTS data in that paste — check you copied the whole file.');
+    return;
+  }
+  fullHtml = html;
+  projects = arr;
+  document.getElementById('loadStatus').textContent = '';
+  renderList();
+  populateCategorySelect();
+  toast('Loaded ' + arr.length + ' projects from pasted HTML.');
+}
+
+
+function slugify(s) {
+  return String(s).toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') || ('project-' + Date.now());
+}
+
+function getCategories() {
+  return Array.from(new Set(projects.map(p => p.category))).sort();
+}
+
+function populateCategorySelect() {
+  const sel = document.getElementById('f_category');
+  const current = sel.value;
+  sel.innerHTML = getCategories().map(c => `<option value="${c}">${c}</option>`).join('');
+  if (current) sel.value = current;
+}
+
+function toggleNewCat() {
+  const wrap = document.getElementById('newCatWrap');
+  wrap.style.display = wrap.style.display === 'block' ? 'none' : 'block';
+  if (wrap.style.display === 'block') document.getElementById('f_newCategory').focus();
+}
+
+/* ── IMAGE INPUT MODE ── */
+function setImgMode(mode) {
+  document.querySelectorAll('.img-tab').forEach(t => t.classList.toggle('active', t.dataset.mode === mode));
+  document.getElementById('f_image_url').style.display = mode === 'url' ? 'block' : 'none';
+  document.getElementById('f_image_file').style.display = mode === 'upload' ? 'block' : 'none';
+}
+
+function handleFileUpload(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    document.getElementById('f_image_url').value = reader.result;
+    showPreview(reader.result);
+  };
+  reader.readAsDataURL(file);
+}
+
+document.getElementById('f_image_url').addEventListener('input', e => showPreview(e.target.value));
+
+function showPreview(src) {
+  const box = document.getElementById('imgPreview');
+  if (!src) { box.style.display = 'none'; return; }
+  document.getElementById('imgPreviewTag').src = src;
+  box.style.display = 'block';
+}
+
+/* ── FORM SAVE ── */
+function saveProject(e) {
+  e.preventDefault();
+
+  let category = document.getElementById('f_category').value;
+  const newCatWrap = document.getElementById('newCatWrap');
+  if (newCatWrap.style.display === 'block') {
+    const newCat = document.getElementById('f_newCategory').value.trim();
+    if (newCat) category = newCat;
+  }
+  if (!category) category = 'Other';
+
+  const tags = document.getElementById('f_tags').value.split(',').map(t => t.trim()).filter(Boolean);
+
+  const data = {
+    id: editingId || slugify(document.getElementById('f_title').value),
+    title: document.getElementById('f_title').value.trim(),
+    description: document.getElementById('f_description').value.trim(),
+    category,
+    image: document.getElementById('f_image_url').value.trim() || 'https://placehold.co/900x650/020c0e/00f5ff?text=New+Project',
+    github: document.getElementById('f_github').value.trim(),
+    live: document.getElementById('f_live').value.trim(),
+    tags,
+    icon: document.getElementById('f_icon').value.trim() || '💻',
+    badge: document.getElementById('f_badge').value.trim() || category,
+    cardType: document.getElementById('f_cardType').value.trim() || category.toUpperCase()
+  };
+
+  if (editingId) {
+    const idx = projects.findIndex(p => p.id === editingId);
+    if (idx > -1) projects[idx] = data;
+    toast('Project updated (remember to export).');
+  } else {
+    projects.push(data);
+    toast('Project added (remember to export).');
+  }
+
+  resetForm();
+  renderList();
+  populateCategorySelect();
+}
+
+function resetForm() {
+  document.getElementById('projectForm').reset();
+  document.getElementById('f_id').value = '';
+  editingId = null;
+  document.getElementById('formTitle').textContent = 'Add New Project';
+  document.getElementById('submitBtn').textContent = '+ Add Project';
+  document.getElementById('cancelEditBtn').style.display = 'none';
+  document.getElementById('newCatWrap').style.display = 'none';
+  showPreview('');
+  setImgMode('url');
+}
+
+function cancelEdit() { resetForm(); }
+
+function editProject(id) {
+  const p = projects.find(x => x.id === id);
+  if (!p) return;
+  editingId = id;
+  document.getElementById('f_title').value = p.title;
+  populateCategorySelect();
+  document.getElementById('f_category').value = p.category;
+  document.getElementById('f_description').value = p.description;
+  document.getElementById('f_image_url').value = p.image;
+  document.getElementById('f_github').value = p.github || '';
+  document.getElementById('f_live').value = p.live || '';
+  document.getElementById('f_tags').value = (p.tags || []).join(', ');
+  document.getElementById('f_icon').value = p.icon || '';
+  document.getElementById('f_badge').value = p.badge || '';
+  document.getElementById('f_cardType').value = p.cardType || '';
+  showPreview(p.image);
+  setImgMode(p.image && p.image.startsWith('data:') ? 'upload' : 'url');
+  document.getElementById('formTitle').textContent = 'Edit Project: ' + p.title;
+  document.getElementById('submitBtn').textContent = 'Update Project';
+  document.getElementById('cancelEditBtn').style.display = 'inline-block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function deleteProject(id) {
+  const p = projects.find(x => x.id === id);
+  if (!p) return;
+  if (!confirm(`Delete "${p.title}"? This can't be undone in this session.`)) return;
+  projects = projects.filter(x => x.id !== id);
+  if (editingId === id) resetForm();
+  renderList();
+  populateCategorySelect();
+  toast('Project deleted (remember to export).');
+}
+
+function moveProject(id, dir) {
+  const idx = projects.findIndex(p => p.id === id);
+  const newIdx = idx + dir;
+  if (newIdx < 0 || newIdx >= projects.length) return;
+  [projects[idx], projects[newIdx]] = [projects[newIdx], projects[idx]];
+  renderList();
+}
+
+/* ── LIST RENDER ── */
+function renderList() {
+  const list = document.getElementById('plist');
+  document.getElementById('countLabel').textContent = projects.length;
+  if (!projects.length) {
+    list.innerHTML = '<div class="empty-msg">No projects yet — add your first one above.</div>';
+    return;
+  }
+  list.innerHTML = projects.map((p, i) => `
+    <div class="pitem">
+      <img src="${p.image}" alt="">
+      <div class="info">
+        <div class="t">${p.title}</div>
+        <div class="c">${p.category}</div>
+      </div>
+      <div class="actions">
+        <button class="btn btn-sm" onclick="moveProject('${p.id}',-1)" ${i === 0 ? 'disabled' : ''}>↑</button>
+        <button class="btn btn-sm" onclick="moveProject('${p.id}',1)" ${i === projects.length - 1 ? 'disabled' : ''}>↓</button>
+        <button class="btn btn-sm" onclick="editProject('${p.id}')">Edit</button>
+        <button class="btn btn-sm btn-danger" onclick="deleteProject('${p.id}')">Delete</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+/* ── EXPORT ── */
+function buildProjectsBlock() {
+  return `${START_MARKER} — admin.html finds and rewrites everything between
+   this line and PROJECTS_DATA_END below. Don't remove these two marker
+   comments, or the admin panel won't be able to save your edits back here.
+
+   Fields:
+     id          - unique short id, lowercase-with-dashes (used internally)
+     title       - project name
+     description - 1-3 sentence description
+     category    - powers the filter tabs above the grid. Use any of the
+                   existing categories below, or type a brand new one in
+                   admin.html — a new filter tab appears automatically.
+     image       - path (e.g. "assets/myshot.png") or full image URL
+     live        - live/demo URL, or "" if none
+     github      - GitHub repo URL, or "" if none
+     tags        - array of short tech tags shown on the card
+     icon        - one emoji shown next to the title
+     badge       - short badge text shown top-right of the title
+     cardType    - small mono label shown above the title (e.g. "FULL STACK")
+*/
+const PROJECTS = ${JSON.stringify(projects, null, 2)};
+${END_MARKER}`;
+}
+
+function buildUpdatedHtml() {
+  if (!fullHtml) return null;
+  const startIdx = fullHtml.indexOf(START_MARKER);
+  const endIdx = fullHtml.indexOf(END_MARKER);
+  if (startIdx === -1 || endIdx === -1) return null;
+  return fullHtml.slice(0, startIdx) + buildProjectsBlock() + fullHtml.slice(endIdx + END_MARKER.length);
+}
+
+function downloadFile() {
+  const updated = buildUpdatedHtml();
+  if (!updated) { toast('Load index.html first (see "Load it manually" below).'); return; }
+  const blob = new Blob([updated], { type: 'text/html' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'index.html';
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+  toast('Downloaded updated index.html');
+}
+
+function copyFile() {
+  navigator.clipboard.writeText(buildProjectsBlock()).then(
+    () => toast('Copied the PROJECTS block to clipboard'),
+    () => toast('Could not copy — try Download instead')
+  );
+}
+
+/* ── TOAST ── */
+let toastTimer;
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2600);
+}
+</script>
+</body>
+</html>
