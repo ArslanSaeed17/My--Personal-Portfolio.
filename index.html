@@ -35,6 +35,8 @@
 
   html { scroll-behavior: smooth; overflow-x: hidden; }
 
+  section[id] { scroll-margin-top: calc(var(--nav-h) + 14px); }
+
   body {
     background: var(--bg);
     color: var(--text);
@@ -1119,7 +1121,6 @@
     width: 42px; height: 42px;
     flex-shrink: 0;
     display: flex; align-items: center; justify-content: center;
-    font-size: 1.05rem;
     color: var(--cyan);
     border: 1px solid var(--border);
     background: rgba(0,245,255,0.05);
@@ -1162,7 +1163,6 @@
     border: 1px solid var(--border);
     background: var(--bg2);
     color: var(--green);
-    font-size: 0.9rem;
   }
 
   .feature-row h4 {
@@ -1197,7 +1197,6 @@
     display: flex; align-items: center; justify-content: center;
     background: linear-gradient(135deg, var(--cyan), var(--green));
     color: #02100f;
-    font-size: 1.1rem;
     clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
   }
 
@@ -1268,6 +1267,7 @@
   }
 
   .btn-submit:hover { box-shadow: var(--glow-cyan); transform: translateY(-2px); }
+  .btn-submit-inner { display: inline-flex; align-items: center; gap: 8px; }
 
   .or-divider {
     display: flex; align-items: center; gap: 1rem;
@@ -1293,6 +1293,7 @@
     transition: all 0.3s;
   }
   .quick-link-btn:hover { border-color: var(--border-hot); background: rgba(0,245,255,0.05); color: var(--cyan); }
+  .quick-link-btn svg { flex-shrink: 0; }
 
   @media (max-width: 900px) {
     .contact-wrapper { grid-template-columns: 1fr; }
@@ -1506,23 +1507,23 @@
       <div class="panel-tag"><span class="status-dot"></span> CONTACT INFORMATION</div>
       <div class="info-grid">
         <div class="info-col">
-          <a href="mailto:contact@arslansaeed.live" class="info-card"><span class="info-icon">✉</span><div class="info-body"><span class="info-label">Email</span><span class="info-value">contact@arslansaeed.live</span><span class="info-desc">I usually reply within 24 hours.</span></div></a>
-          <a href="https://wa.me/923008971489" target="_blank" class="info-card"><span class="info-icon">💬</span><div class="info-body"><span class="info-label">WhatsApp</span><span class="info-value">+92 300 8971489</span><span class="info-desc">Quick questions? Message me anytime.</span></div></a>
-          <a href="https://www.linkedin.com/in/arslan-saeed-2a02b128b/" target="_blank" class="info-card"><span class="info-icon">🔗</span><div class="info-body"><span class="info-label">LinkedIn</span><span class="info-value">linkedin.com/in/arslan-saeed</span><span class="info-desc">Let's connect and grow together.</span></div></a>
-          <a href="https://www.google.com/maps/place/Lahore" target="_blank" class="info-card"><span class="info-icon">📍</span><div class="info-body"><span class="info-label">Location</span><span class="info-value">Lahore, Pakistan</span><span class="info-desc">Open to remote opportunities.</span></div></a>
+          <a href="mailto:contact@arslansaeed.live" class="info-card"><span class="info-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg></span><div class="info-body"><span class="info-label">Email</span><span class="info-value">contact@arslansaeed.live</span><span class="info-desc">I usually reply within 24 hours.</span></div></a>
+          <a href="https://wa.me/923008971489" target="_blank" class="info-card"><span class="info-icon" style="color:var(--green)"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.6.1-.2.3-.7.9-.9 1-.1.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.5-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.1.2-.3.2-.4.1-.2 0-.4 0-.5S10 7.2 9.8 6.8c-.2-.4-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3 4.8 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.4.2-.6.2-1.2.2-1.3-.1-.1-.3-.2-.5-.3zM12 2C6.5 2 2 6.5 2 12c0 1.9.5 3.7 1.5 5.2L2 22l4.9-1.3c1.4.8 3 1.2 4.7 1.2h.4c5.5 0 10-4.5 10-10S17.5 2 12 2z"/></svg></span><div class="info-body"><span class="info-label">WhatsApp</span><span class="info-value">+92 300 8971489</span><span class="info-desc">Quick questions? Message me anytime.</span></div></a>
+          <a href="https://www.linkedin.com/in/arslan-saeed-2a02b128b/" target="_blank" class="info-card"><span class="info-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.61 0 4.28 2.38 4.28 5.47v6.27zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.8 0 0 .78 0 1.75v20.5C0 23.22.8 24 1.77 24h20.45c.98 0 1.78-.78 1.78-1.75V1.75C24 .78 23.2 0 22.22 0z"/></svg></span><div class="info-body"><span class="info-label">LinkedIn</span><span class="info-value">linkedin.com/in/arslan-saeed</span><span class="info-desc">Let's connect and grow together.</span></div></a>
+          <a href="https://www.google.com/maps/place/Lahore" target="_blank" class="info-card"><span class="info-icon" style="color:var(--red)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></span><div class="info-body"><span class="info-label">Location</span><span class="info-value">Lahore, Pakistan</span><span class="info-desc">Open to remote opportunities.</span></div></a>
         </div>
         <div class="feature-col">
-          <div class="feature-row"><span class="feature-icon">⚡</span><div><h4>Fast Response</h4><p>I reply as soon as possible.</p></div></div>
-          <div class="feature-row"><span class="feature-icon">🛡</span><div><h4>Professional</h4><p>Clean, clear & respectful communication.</p></div></div>
-          <div class="feature-row"><span class="feature-icon">💡</span><div><h4>Collaboration</h4><p>Let's turn ideas into real projects.</p></div></div>
-          <div class="feature-row"><span class="feature-icon">⌁</span><div><h4>Open to Opportunities</h4><p>Internships, freelance, collabs & more.</p></div></div>
+          <div class="feature-row"><span class="feature-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8Z"/></svg></span><div><h4>Fast Response</h4><p>I reply as soon as possible.</p></div></div>
+          <div class="feature-row"><span class="feature-icon" style="color:var(--cyan)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.4 9 8 11 4.6-2 8-6 8-11V5l-8-3Z"/></svg></span><div><h4>Professional</h4><p>Clean, clear & respectful communication.</p></div></div>
+          <div class="feature-row"><span class="feature-icon" style="color:var(--yellow)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1v.2h6v-.2c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2Z"/></svg></span><div><h4>Collaboration</h4><p>Let's turn ideas into real projects.</p></div></div>
+          <div class="feature-row"><span class="feature-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></span><div><h4>Open to Opportunities</h4><p>Internships, freelance, collabs & more.</p></div></div>
         </div>
       </div>
       <span class="handwritten">Same goals. Better together.</span>
     </div>
 
     <div class="contact-panel reveal" style="transition-delay:0.2s">
-      <div class="form-panel-head"><span class="fp-icon">➤</span><div><h3>Send a Message</h3><p>Fill out the form below and I'll get back to you soon.</p></div></div>
+      <div class="form-panel-head"><span class="fp-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg></span><div><h3>Send a Message</h3><p>Fill out the form below and I'll get back to you soon.</p></div></div>
       <form class="contact-form" onsubmit="handleSubmit(event)">
         <div class="form-row-2">
           <div class="form-group"><label>Your Name</label><input type="text" placeholder="Ali" required></div>
@@ -1530,13 +1531,13 @@
         </div>
         <div class="form-group"><label>Subject</label><select required><option value="" disabled selected>Choose a subject</option><option>Website / Web App Project</option><option>Freelance Collaboration</option><option>Cybersecurity Opportunity</option><option>Internship</option><option>Just Saying Hi</option></select></div>
         <div class="form-group"><label>Your Message</label><textarea placeholder="Tell me about your website, business or project..." required></textarea></div>
-        <button type="submit" class="btn-submit"><span>➤ SEND MESSAGE →</span></button>
+        <button type="submit" class="btn-submit"><span class="btn-submit-inner"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg> SEND MESSAGE →</span></button>
       </form>
       <div class="or-divider">OR</div>
       <div class="quick-links-row">
-        <a href="https://wa.me/923008971489" target="_blank" class="quick-link-btn">💬 WhatsApp</a>
-        <a href="https://www.linkedin.com/in/arslan-saeed-2a02b128b/" target="_blank" class="quick-link-btn">🔗 LinkedIn</a>
-        <a href="mailto:contact@arslansaeed.live" class="quick-link-btn">✉ Email</a>
+        <a href="https://wa.me/923008971489" target="_blank" class="quick-link-btn"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.6.1-.2.3-.7.9-.9 1-.1.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.5-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.1.2-.3.2-.4.1-.2 0-.4 0-.5S10 7.2 9.8 6.8c-.2-.4-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3 4.8 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.4.2-.6.2-1.2.2-1.3-.1-.1-.3-.2-.5-.3zM12 2C6.5 2 2 6.5 2 12c0 1.9.5 3.7 1.5 5.2L2 22l4.9-1.3c1.4.8 3 1.2 4.7 1.2h.4c5.5 0 10-4.5 10-10S17.5 2 12 2z"/></svg> WhatsApp</a>
+        <a href="https://www.linkedin.com/in/arslan-saeed-2a02b128b/" target="_blank" class="quick-link-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.61 0 4.28 2.38 4.28 5.47v6.27zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.8 0 0 .78 0 1.75v20.5C0 23.22.8 24 1.77 24h20.45c.98 0 1.78-.78 1.78-1.75V1.75C24 .78 23.2 0 22.22 0z"/></svg> LinkedIn</a>
+        <a href="mailto:contact@arslansaeed.live" class="quick-link-btn"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg> Email</a>
       </div>
     </div>
   </div>
@@ -1876,11 +1877,12 @@ document.querySelectorAll('.nav-links a').forEach(link => {
 function handleSubmit(e) {
   e.preventDefault();
   const btn = e.target.querySelector('.btn-submit span');
+  const original = btn.innerHTML;
   btn.textContent = '✓ MESSAGE SENT SECURELY';
   e.target.style.pointerEvents = 'none';
   e.target.style.opacity = '0.6';
   setTimeout(() => {
-    btn.textContent = '➤ SEND MESSAGE →';
+    btn.innerHTML = original;
     e.target.style.pointerEvents = '';
     e.target.style.opacity = '1';
     e.target.reset();
